@@ -1,0 +1,18 @@
+{
+    "name": "RemotePackageLoader.Editor.Tests",
+    "rootNamespace": "RemotePackageLoader.Editor.Tests",
+    "references": [
+        "GUID:dcffdd402b8a84749a2d6626c1c931a3"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

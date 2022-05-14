@@ -1,0 +1,20 @@
+{
+  "name": "fedorenkosergiy.remote-package-loader",
+  "version": "0.1.0",
+  "displayName": "RemotePackageLoader",
+  "description": "Allows to use remote tarball packages in a Unity project",
+  "unity": "2020.3",
+  "unityRelease": "23f1",
+  "dependencies": {
+    "fedorenkosergiy.moqunity":"0.1.0",
+    "com.unity.serialization": "2.0.0-exp.11"
+ },
+ "keywords": [
+    "Package"
+  ],
+  "author": {
+    "name": "Serhii Fedorenko",
+    "email": "fedorenkosergiy@gmail.com",
+    "url": "https://example.com"
+  }
+}
