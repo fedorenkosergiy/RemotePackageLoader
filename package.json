@@ -1,6 +1,6 @@
 {
   "name": "fedorenkosergiy.remote-package-loader",
-  "version": "0.1.0",
+  "version": "0.1.0-preview",
   "displayName": "RemotePackageLoader",
   "description": "Allows to use remote tarball packages in a Unity project",
   "unity": "2020.3",
