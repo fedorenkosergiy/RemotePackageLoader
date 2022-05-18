@@ -6,7 +6,6 @@
   "unity": "2020.3",
   "unityRelease": "23f1",
   "dependencies": {
-    "fedorenkosergiy.moqunity":"0.1.0",
     "com.unity.serialization": "2.0.0-exp.11"
  },
  "keywords": [
