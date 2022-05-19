@@ -1,10 +1,12 @@
+using UnityEditor;
+
 namespace RemotePackageLoader.Editor
 {
     public class ArchiveExtractorWindows : ArchiveExtractor
     {
         protected override string Get7ZipPath()
         {
-            throw new System.NotImplementedException();
+            return EditorApplication.applicationContentsPath + "/Data/Tools/7z.exe";
         }
     }
 }
