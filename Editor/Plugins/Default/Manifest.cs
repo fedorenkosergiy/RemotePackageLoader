@@ -8,7 +8,7 @@ namespace RemotePackageLoader.Editor
     public class Manifest
     {
         [SerializeField]
-        private List<RemotePackageInfo> packages = new();
+        private List<RemotePackageInfo> packages = new List<RemotePackageInfo>();
 
         public List<RemotePackageInfo> Packages => packages;
     }
