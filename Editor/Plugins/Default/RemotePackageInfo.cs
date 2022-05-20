@@ -10,8 +10,8 @@ namespace RemotePackageLoader.Editor
         [SerializeField] private string localPath;
         [SerializeField] private string internalPath;
         [SerializeField] private string name;
+        [SerializeField] private string type;
         private RemotePackageType convertedType;
-        private string type;
 
         public string RemotePath => remotePath;
         public string LocalPath => localPath;
