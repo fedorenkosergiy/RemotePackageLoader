@@ -15,7 +15,7 @@ namespace RemotePackageLoader.Editor
             Uri uri = new Uri(info.RemotePath);
             string tempPath = FileUtil.GetUniqueTempPathInProject();
             Directory.CreateDirectory(tempPath);
-            tempPath += "/" + FileName + GetAssociatedExtension(info.Type);
+            tempPath += "/" + FileName + GetAssociatedExtension(info.ConvertedType);
             client.DownloadFile(uri, tempPath);
             return tempPath;
         }

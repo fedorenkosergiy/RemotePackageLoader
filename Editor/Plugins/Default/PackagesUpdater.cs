@@ -1,9 +1,6 @@
-using System;
 using System.IO;
-using UnityEditor;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
-using UnityEngine;
 
 namespace RemotePackageLoader.Editor
 {

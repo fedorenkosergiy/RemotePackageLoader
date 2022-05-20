@@ -8,7 +8,7 @@ namespace RemotePackageLoader.Editor
     {
         public void Unpack(RemotePackageInfo info, string path)
         {
-            switch (info.Type)
+            switch (info.ConvertedType)
             {
                 case RemotePackageType.Zip:
                     UnpackZip(info, path);

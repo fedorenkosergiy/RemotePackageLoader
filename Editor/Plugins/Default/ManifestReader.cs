@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using Unity.Serialization.Json;
 
 namespace RemotePackageLoader.Editor
 {
@@ -15,10 +13,7 @@ namespace RemotePackageLoader.Editor
             string manifestPath = Path.Combine(projectPath, ManifestPath);
             if (!File.Exists(manifestPath)) return new Manifest();
             string content = File.ReadAllText(manifestPath);
-            JsonSerializationParameters parameters = new JsonSerializationParameters();
-            parameters.UserDefinedAdapters = new List<IJsonAdapter>();
-            parameters.UserDefinedAdapters.Add(new RemotePackageTypeJsonAdapter());
-            return JsonSerialization.FromJson<Manifest>(content, parameters);
+            return JsonUtility.FromJson<Manifest>(content);
         }
     }
 }

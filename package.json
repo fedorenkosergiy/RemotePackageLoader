@@ -6,8 +6,7 @@
   "unity": "2020.3",
   "unityRelease": "23f1",
   "dependencies": {
-    "com.unity.serialization": "2.0.0-exp.11"
- },
+  },
  "keywords": [
     "Package"
   ],
