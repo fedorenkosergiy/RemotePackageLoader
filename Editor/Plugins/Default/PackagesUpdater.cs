@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
@@ -8,12 +9,25 @@ namespace RemotePackageLoader.Editor
     {
         public bool Exists(RemotePackageInfo info)
         {
-            SearchRequest request = Client.Search(info.Name);
+            ListRequest request = Client.List(true);
             while (!request.IsCompleted)
             {
             }
 
-            return request.Result != null;
+            if (request.Error != null)
+            {
+                throw new Exception(request.Error.message);
+            }
+
+            foreach (PackageInfo packageInfo in request.Result)
+            {
+                if (packageInfo.name == info.Name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         
         public void Add(RemotePackageInfo info)

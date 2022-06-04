@@ -6,7 +6,7 @@ namespace RemotePackageLoader.Editor
     {
         protected override string Get7ZipPath()
         {
-            return EditorApplication.applicationContentsPath + "/Data/Tools/7z.exe";
+            return EditorApplication.applicationContentsPath + "/Tools/7z.exe";
         }
     }
 }
