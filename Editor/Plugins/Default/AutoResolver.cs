@@ -7,8 +7,14 @@ namespace RemotePackageLoader.Editor
     {
         static AutoResolver()
         {
-            Resolver resolver = new Resolver();
-            resolver.Resolve();
+	        Resolve();
+        }
+
+        [MenuItem("resolver/resolve")]
+        public static void Resolve()
+        {
+	        Resolver resolver = new Resolver();
+	        resolver.Resolve();
         }
     }
 }

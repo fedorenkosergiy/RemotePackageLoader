@@ -10,12 +10,23 @@ namespace RemotePackageLoader.Editor
             {
                 RemotePackageInfo info = manifest.Packages[i];
                 PackagesUpdater updater = new PackagesUpdater();
-                if (updater.Exists(info)) continue;
-                RemotePackageDownloader downloader = new RemotePackageDownloader();
-                string archivePath = downloader.Download(info);
-                Unpacker unpacker = new Unpacker();
-                unpacker.Unpack(info, archivePath);
-                updater.Add(info);
+                if (!updater.RequiresResolve(info, out ResolutionType resolutionType))
+                {
+	                continue;
+                }
+
+                if (resolutionType.IsDownload())
+                {
+	                RemotePackageDownloader downloader = new RemotePackageDownloader();
+	                string archivePath = downloader.Download(info);
+	                Unpacker unpacker = new Unpacker();
+	                unpacker.Unpack(info, archivePath);
+                }
+
+                if (resolutionType.IsAddToManifest())
+                {
+	                updater.Add(info);
+                }
             }
         }
     }

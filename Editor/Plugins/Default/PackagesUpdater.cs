@@ -2,13 +2,15 @@ using System;
 using System.IO;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
+using UnityEngine;
 
 namespace RemotePackageLoader.Editor
 {
     public class PackagesUpdater
     {
-        public bool Exists(RemotePackageInfo info)
+        public bool RequiresResolve(RemotePackageInfo info, out ResolutionType resolutionType)
         {
+	        resolutionType = ResolutionType.All;
             ListRequest request = Client.List(true);
             while (!request.IsCompleted)
             {
@@ -19,17 +21,34 @@ namespace RemotePackageLoader.Editor
                 throw new Exception(request.Error.message);
             }
 
+            PackageInfo package = null;
             foreach (PackageInfo packageInfo in request.Result)
             {
                 if (packageInfo.name == info.Name)
                 {
-                    return true;
+	                package = packageInfo;
+	                resolutionType &= ~ResolutionType.AddToManifest;
+	                break;
                 }
             }
 
-            return false;
+            string hashFilePath = null;
+            if (package != null)
+            {
+	             hashFilePath = Path.Combine(package.resolvedPath, ".hash");
+            }
+            else
+            {
+	            hashFilePath = Path.Combine(Application.dataPath, info.LocalPath, ".hash");
+            }
+            if (File.Exists(hashFilePath))
+            {
+	            resolutionType &= ~ResolutionType.Download;
+            }
+
+            return resolutionType != ResolutionType.None;
         }
-        
+
         public void Add(RemotePackageInfo info)
         {
             string identifier = GenerateIdentifier(info);
