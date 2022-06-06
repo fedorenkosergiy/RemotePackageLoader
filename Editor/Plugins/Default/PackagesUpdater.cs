@@ -10,11 +10,9 @@ namespace RemotePackageLoader.Editor
     {
         public bool RequiresResolve(RemotePackageInfo info, out ResolutionType resolutionType)
         {
-	        resolutionType = ResolutionType.All;
+            resolutionType = ResolutionType.All;
             ListRequest request = Client.List(true);
-            while (!request.IsCompleted)
-            {
-            }
+            while (!request.IsCompleted) { }
 
             if (request.Error != null)
             {
@@ -26,24 +24,26 @@ namespace RemotePackageLoader.Editor
             {
                 if (packageInfo.name == info.Name)
                 {
-	                package = packageInfo;
-	                resolutionType &= ~ResolutionType.AddToManifest;
-	                break;
+                    package = packageInfo;
+                    resolutionType &= ~ResolutionType.AddToManifest;
+                    break;
                 }
             }
 
             string hashFilePath = null;
             if (package != null)
             {
-	             hashFilePath = Path.Combine(package.resolvedPath, ".hash");
+                hashFilePath = Path.Combine(package.resolvedPath, "package.json");
             }
             else
             {
-	            hashFilePath = Path.Combine(Application.dataPath, info.LocalPath, ".hash");
+                hashFilePath = Path.Combine(Application.dataPath.Substring(0, Application.dataPath.Length - 7),
+                    info.LocalPath, "package.json");
             }
+
             if (File.Exists(hashFilePath))
             {
-	            resolutionType &= ~ResolutionType.Download;
+                resolutionType &= ~ResolutionType.Download;
             }
 
             return resolutionType != ResolutionType.None;
@@ -53,9 +53,7 @@ namespace RemotePackageLoader.Editor
         {
             string identifier = GenerateIdentifier(info);
             AddRequest request = Client.Add(identifier);
-            while (!request.IsCompleted)
-            {
-            }
+            while (!request.IsCompleted) { }
         }
 
         private string GenerateIdentifier(RemotePackageInfo info)
@@ -64,6 +62,7 @@ namespace RemotePackageLoader.Editor
             {
                 return "file:" + info.LocalPath + "/" + info.InternalPath;
             }
+
             return "file:../" + info.LocalPath + "/" + info.InternalPath;
         }
     }
