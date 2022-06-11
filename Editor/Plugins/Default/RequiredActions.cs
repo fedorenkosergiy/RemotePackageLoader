@@ -3,7 +3,7 @@
 namespace RemotePackageLoader.Editor
 {
     [Flags]
-    public enum ResolutionType : byte
+    public enum RequiredActions : byte
     {
         None = 0,
         Download = 1 << 0,

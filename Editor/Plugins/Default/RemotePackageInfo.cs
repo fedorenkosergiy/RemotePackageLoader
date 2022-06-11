@@ -1,6 +1,6 @@
 using System;
-using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RemotePackageLoader.Editor
 {
@@ -12,22 +12,28 @@ namespace RemotePackageLoader.Editor
         [SerializeField] private string internalPath;
         [SerializeField] private string name;
         [SerializeField] private string type;
+        [SerializeField] private string version;
+        
         private RemotePackageType convertedType;
 
         public string RemotePath => remotePath;
         public string LocalPath => localPath;
         public string InternalPath => internalPath;
         public string Name => name;
+        public Version Version { get; private set; }
         public RemotePackageType ConvertedType => convertedType;
         public void OnBeforeSerialize()
         {
             type = RemotePackageTypeUtil.TypeToString(convertedType);
+            version = Version.ToString();
         }
 
         public void OnAfterDeserialize()
         {
             convertedType = RemotePackageTypeUtil.StringToType(type);
             type = null;
+            Version = new Version(version);
+            version = null;
         }
     }
 }

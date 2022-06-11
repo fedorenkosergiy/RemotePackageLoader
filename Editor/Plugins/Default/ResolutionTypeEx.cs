@@ -2,14 +2,14 @@
 {
 	public static class ResolutionTypeEx
 	{
-		public static bool IsAddToManifest(this ResolutionType value)
+		public static bool ContainsAddToManifest(this RequiredActions value)
 		{
-			return (value & ResolutionType.AddToManifest) != 0;
+			return (value & RequiredActions.AddToManifest) != 0;
 		}
 
-		public static bool IsDownload(this ResolutionType value)
+		public static bool ContainsDownload(this RequiredActions value)
 		{
-			return (value & ResolutionType.Download) != 0;
+			return (value & RequiredActions.Download) != 0;
 		}
 	}
 }

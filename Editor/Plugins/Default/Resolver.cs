@@ -9,13 +9,14 @@ namespace RemotePackageLoader.Editor
             for (int i = 0; i < manifest.Packages.Count; ++i)
             {
                 RemotePackageInfo info = manifest.Packages[i];
-                PackagesUpdater updater = new PackagesUpdater();
-                if (!updater.RequiresResolve(info, out ResolutionType resolutionType))
+                PackageAnalyzer analyzer = new PackageAnalyzer();
+                RequiredActions requiredActions = analyzer.GetRequiredActions(info);
+                if (requiredActions == RequiredActions.None)
                 {
 	                continue;
                 }
 
-                if (resolutionType.IsDownload())
+                if (requiredActions.ContainsDownload())
                 {
 	                RemotePackageDownloader downloader = new RemotePackageDownloader();
 	                string archivePath = downloader.Download(info);
@@ -23,8 +24,9 @@ namespace RemotePackageLoader.Editor
 	                unpacker.Unpack(info, archivePath);
                 }
 
-                if (resolutionType.IsAddToManifest())
+                if (requiredActions.ContainsAddToManifest())
                 {
+                    PackagesUpdater updater = new PackagesUpdater();
 	                updater.Add(info);
                 }
             }

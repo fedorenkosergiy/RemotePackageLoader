@@ -11,7 +11,11 @@ namespace RemotePackageLoader.Editor
         {
             string projectPath = Path.Combine(Application.dataPath, "..");
             string manifestPath = Path.Combine(projectPath, ManifestPath);
-            if (!File.Exists(manifestPath)) return new Manifest();
+            if (!File.Exists(manifestPath))
+            {
+                return new Manifest();
+            }
+
             string content = File.ReadAllText(manifestPath);
             return JsonUtility.FromJson<Manifest>(content);
         }

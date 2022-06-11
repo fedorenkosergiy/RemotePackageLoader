@@ -8,47 +8,6 @@ namespace RemotePackageLoader.Editor
 {
     public class PackagesUpdater
     {
-        public bool RequiresResolve(RemotePackageInfo info, out ResolutionType resolutionType)
-        {
-            resolutionType = ResolutionType.All;
-            ListRequest request = Client.List(true);
-            while (!request.IsCompleted) { }
-
-            if (request.Error != null)
-            {
-                throw new Exception(request.Error.message);
-            }
-
-            PackageInfo package = null;
-            foreach (PackageInfo packageInfo in request.Result)
-            {
-                if (packageInfo.name == info.Name)
-                {
-                    package = packageInfo;
-                    resolutionType &= ~ResolutionType.AddToManifest;
-                    break;
-                }
-            }
-
-            string hashFilePath = null;
-            if (package != null)
-            {
-                hashFilePath = Path.Combine(package.resolvedPath, "package.json");
-            }
-            else
-            {
-                hashFilePath = Path.Combine(Application.dataPath.Substring(0, Application.dataPath.Length - 7),
-                    info.LocalPath, "package.json");
-            }
-
-            if (File.Exists(hashFilePath))
-            {
-                resolutionType &= ~ResolutionType.Download;
-            }
-
-            return resolutionType != ResolutionType.None;
-        }
-
         public void Add(RemotePackageInfo info)
         {
             string identifier = GenerateIdentifier(info);
