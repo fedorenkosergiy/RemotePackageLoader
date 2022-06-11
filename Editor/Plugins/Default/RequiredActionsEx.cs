@@ -1,6 +1,6 @@
 ﻿namespace RemotePackageLoader.Editor
 {
-	public static class ResolutionTypeEx
+	public static class RequiredActionsEx
 	{
 		public static bool ContainsAddToManifest(this RequiredActions value)
 		{
@@ -10,6 +10,11 @@
 		public static bool ContainsDownload(this RequiredActions value)
 		{
 			return (value & RequiredActions.Download) != 0;
+		}
+
+		public static bool ContainsHandleDependencies(this RequiredActions value)
+		{
+			return (value & RequiredActions.HandleDependencies) != 0;
 		}
 	}
 }

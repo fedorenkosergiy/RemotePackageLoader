@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RemotePackageLoader.Editor
 {
@@ -13,6 +12,7 @@ namespace RemotePackageLoader.Editor
         [SerializeField] private string name;
         [SerializeField] private string type;
         [SerializeField] private string version;
+        [SerializeField] private string[] dependencies;
         
         private RemotePackageType convertedType;
 
@@ -22,6 +22,7 @@ namespace RemotePackageLoader.Editor
         public string Name => name;
         public Version Version { get; private set; }
         public RemotePackageType ConvertedType => convertedType;
+        public string [] Dependencies => dependencies;
         public void OnBeforeSerialize()
         {
             type = RemotePackageTypeUtil.TypeToString(convertedType);
