@@ -1,3 +1,5 @@
+using UnityEngine.Windows;
+
 namespace RemotePackageLoader.Editor
 {
     public class Resolver
@@ -21,6 +23,17 @@ namespace RemotePackageLoader.Editor
                     if (requiredActions == RequiredActions.None)
                     {
                         continue;
+                    }
+
+                    if (requiredActions.ContainsDeletePackageDirectory())
+                    {
+	                    Directory.Delete(info.LocalPath);
+                    }
+
+                    if (requiredActions.ContainsDeleteFromManifest())
+                    {
+	                    PackagesUpdater updater = new PackagesUpdater();
+	                    updater.Delete(info);
                     }
 
                     if (requiredActions.ContainsHandleDependencies())
