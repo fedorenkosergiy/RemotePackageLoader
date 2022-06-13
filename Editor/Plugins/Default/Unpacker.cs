@@ -25,8 +25,8 @@ namespace RemotePackageLoader.Editor
         {
             ArchiveExtractorCreator extractorCreator = new ArchiveExtractorCreator();
             ArchiveExtractor extractor = extractorCreator.Create();
-            Directory.CreateDirectory(info.LocalPath);
-            extractor.Extract(path, info.LocalPath);
+            Directory.CreateDirectory(info.GetInProjectDirPath());
+            extractor.Extract(path, info.GetInProjectDirPath());
         }
 
         private void UnpackTgz(RemotePackageInfo info, string path)
@@ -37,8 +37,8 @@ namespace RemotePackageLoader.Editor
             Directory.CreateDirectory(tarDir);
             extractor.Extract(path, tarDir);
             string tarPath = tarDir + "/" + Path.GetFileNameWithoutExtension(path) + ".tar";
-            Directory.CreateDirectory(info.LocalPath);
-            extractor.Extract(tarPath, info.LocalPath);
+            Directory.CreateDirectory(info.GetInProjectDirPath());
+            extractor.Extract(tarPath, info.GetInProjectDirPath());
         }
     }
 }

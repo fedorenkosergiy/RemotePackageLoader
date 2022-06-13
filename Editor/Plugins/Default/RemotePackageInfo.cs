@@ -47,8 +47,22 @@ namespace RemotePackageLoader.Editor
 
 		public string GetInProjectDirPath()
 		{
-			return Path.Combine(Application.dataPath.Substring(0, Application.dataPath.Length - 7),
-				settings.PackageDirPath, localPath, internalPath);
+			return Path.Combine(GetProjectPath(), settings.PackageDirPath, LocalPath);
+		}
+
+		private static string GetProjectPath()
+		{
+			return Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+		}
+
+		public string GetPackageFilePath()
+		{
+			return Path.Combine(GetInProjectDirPath(), InternalPath, "package.json");
+		}
+
+		public string GenerateIdentifier()
+		{
+			return "file:../" + settings.PackageDirPath + "/" + LocalPath + "/" + InternalPath;
 		}
 	}
 }

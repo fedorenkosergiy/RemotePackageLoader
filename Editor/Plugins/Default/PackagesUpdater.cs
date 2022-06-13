@@ -1,8 +1,5 @@
-using System;
-using System.IO;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
-using UnityEngine;
 
 namespace RemotePackageLoader.Editor
 {
@@ -10,19 +7,9 @@ namespace RemotePackageLoader.Editor
 	{
 		public void Add(RemotePackageInfo info)
 		{
-			string identifier = GenerateIdentifier(info);
+			string identifier = info.GenerateIdentifier();
 			AddRequest request = Client.Add(identifier);
 			while (!request.IsCompleted) { }
-		}
-
-		private string GenerateIdentifier(RemotePackageInfo info)
-		{
-			if (Path.IsPathRooted(info.LocalPath))
-			{
-				return "file:" + info.LocalPath + "/" + info.InternalPath;
-			}
-
-			return "file:../" + info.LocalPath + "/" + info.InternalPath;
 		}
 
 		public void Delete(RemotePackageInfo info)

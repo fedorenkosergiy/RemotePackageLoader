@@ -57,7 +57,7 @@ namespace RemotePackageLoader.Editor
 
 		private bool IsNeedToBeDownloaded(RemotePackageInfo info)
 		{
-			string packageFilePath = GetPackageJsonPath(info);
+			string packageFilePath = info.GetPackageFilePath();
 
 			if (File.Exists(packageFilePath))
 			{
@@ -70,12 +70,6 @@ namespace RemotePackageLoader.Editor
 			}
 
 			return true;
-		}
-
-		private static string GetPackageJsonPath(RemotePackageInfo info)
-		{
-			return Path.Combine(Application.dataPath.Substring(0, Application.dataPath.Length - 7),
-				info.LocalPath, info.InternalPath, "package.json");
 		}
 
 		private bool IsNeedToHandleDependencies(RemotePackageInfo info)
@@ -119,7 +113,7 @@ namespace RemotePackageLoader.Editor
 
 		private bool IsNeedToDeletePackageDirectory(RemotePackageInfo info)
 		{
-			string packageFilePath = GetPackageJsonPath(info);
+			string packageFilePath = info.GetPackageFilePath();
 			if (File.Exists(packageFilePath))
 			{
 				string metaInfoContent = File.ReadAllText(packageFilePath);

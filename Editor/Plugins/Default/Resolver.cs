@@ -27,7 +27,7 @@ namespace RemotePackageLoader.Editor
 
                     if (requiredActions.ContainsDeletePackageDirectory())
                     {
-	                    Directory.Delete(info.LocalPath);
+	                    Directory.Delete(info.GetInProjectDirPath());
                     }
 
                     if (requiredActions.ContainsDeleteFromManifest())
