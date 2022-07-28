@@ -10,7 +10,7 @@ namespace RemotePackageLoader.Editor
 	        Resolve();
         }
 
-        [MenuItem("resolver/resolve")]
+        [MenuItem("Edit/RemotePackageLoader/Resolve")]
         public static void Resolve()
         {
 	        Resolver resolver = new Resolver();

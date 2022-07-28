@@ -17,9 +17,9 @@
 			return (value & RequiredActions.HandleDependencies) != 0;
 		}
 
-		public static bool ContainsDeletePackageDirectory(this RequiredActions value)
+		public static bool ContainsDeletePackage(this RequiredActions value)
 		{
-			return (value & RequiredActions.DeletePackageDirectory) != 0;
+			return (value & RequiredActions.DeletePackageFile) != 0;
 		}
 
 		public static bool ContainsDeleteFromManifest(this RequiredActions value)

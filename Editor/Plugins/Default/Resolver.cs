@@ -25,9 +25,9 @@ namespace RemotePackageLoader.Editor
                         continue;
                     }
 
-                    if (requiredActions.ContainsDeletePackageDirectory())
+                    if (requiredActions.ContainsDeletePackage())
                     {
-	                    Directory.Delete(info.GetInProjectDirPath());
+	                    File.Delete(info.GetLocalPath());
                     }
 
                     if (requiredActions.ContainsDeleteFromManifest())
@@ -47,9 +47,7 @@ namespace RemotePackageLoader.Editor
                     if (requiredActions.ContainsDownload())
                     {
                         RemotePackageDownloader downloader = new RemotePackageDownloader();
-                        string archivePath = downloader.Download(info);
-                        Unpacker unpacker = new Unpacker();
-                        unpacker.Unpack(info, archivePath);
+                        downloader.Download(info);
                     }
 
                     if (requiredActions.ContainsAddToManifest())

@@ -4,65 +4,60 @@ using UnityEngine;
 
 namespace RemotePackageLoader.Editor
 {
-	[Serializable]
-	public class RemotePackageInfo : ISerializationCallbackReceiver
-	{
-		[SerializeField] private string remotePath;
-		[SerializeField] private string localPath;
-		[SerializeField] private string internalPath;
-		[SerializeField] private string name;
-		[SerializeField] private string type;
-		[SerializeField] private string version;
-		[SerializeField] private string[] dependencies;
-		[NonSerialized] private Settings settings;
+    [Serializable]
+    public class RemotePackageInfo : ISerializationCallbackReceiver
+    {
+        [SerializeField] private string remotePath;
+        [SerializeField] private string localDir;
+        [SerializeField] private string name;
+        [SerializeField] private string type;
+        [SerializeField] private string[] dependencies;
+        [SerializeField] private string hash;
 
-		private RemotePackageType convertedType;
+        public string RemotePath => remotePath;
+        public string LocalDir => localDir;
+        public string Name => name;
+        public RemotePackageType Type { get; private set; }
+        public string Hash => hash;
 
-		public string RemotePath => remotePath;
-		public string LocalPath => localPath;
-		public string InternalPath => internalPath;
-		public string Name => name;
-		public Version Version { get; private set; }
-		public RemotePackageType ConvertedType => convertedType;
-		public string[] Dependencies => dependencies;
+        public string[] Dependencies => dependencies;
 
-		public void OnBeforeSerialize()
-		{
-			type = RemotePackageTypeUtil.TypeToString(convertedType);
-			version = Version.ToString();
-		}
+        public void OnBeforeSerialize()
+        {
+            type = RemotePackageTypeUtil.TypeToString(Type);
+        }
 
-		public void OnAfterDeserialize()
-		{
-			convertedType = RemotePackageTypeUtil.StringToType(type);
-			type = null;
-			Version = new Version(version);
-			version = null;
-		}
+        public void OnAfterDeserialize()
+        {
+            Type = RemotePackageTypeUtil.StringToType(type);
+            type = null;
+        }
 
-		internal void Inject(Settings settings)
-		{
-			this.settings = settings;
-		}
+        public string GetInProjectDirPath()
+        {
+            return Path.Combine(GetPackagesDirPath(), LocalDir);
+        }
 
-		public string GetInProjectDirPath()
-		{
-			return Path.Combine(GetProjectPath(), settings.PackageDirPath, LocalPath);
-		}
+        private string GetPackagesDirPath()
+        {
+            string project = GetProjectPath();
+            string candidate = Path.Combine(project, "packages");
+            return Directory.Exists(candidate) ? candidate : Path.Combine(project, "Packages");
+        }
 
-		private static string GetProjectPath()
-		{
-			return Application.dataPath.Substring(0, Application.dataPath.Length - 7);
-		}
+        private static string GetProjectPath()
+        {
+            return Application.dataPath.Substring(0, Application.dataPath.Length - 7);
+        }
 
-		public string GetPackageFilePath()
-		{
-			return Path.Combine(GetInProjectDirPath(), InternalPath, "package.json");
-		}
+        public string GenerateIdentifier()
+        {
+            return "file:" + LocalDir + "/" + Name + ".tgz";
+        }
 
-		public string GenerateIdentifier()
-		{
-			return "file:../" + settings.PackageDirPath + "/" + LocalPath + "/" + InternalPath;
-		}
-	}
+        public string GetLocalPath()
+        {
+            return Path.Combine(GetPackagesDirPath(), LocalDir, Name) + ".tgz";
+        }
+    }
 }

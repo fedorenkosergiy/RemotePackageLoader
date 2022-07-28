@@ -9,7 +9,7 @@ namespace RemotePackageLoader.Editor
 		DownloadArchive = 1 << 0,
 		AddRecordToManifest = 1 << 1,
 		HandleDependencies = 1 << 2,
-		DeletePackageDirectory = 1 << 3,
+		DeletePackageFile = 1 << 3,
 		DeleteRecordFromManifest = 1 << 4,
 	}
 }
