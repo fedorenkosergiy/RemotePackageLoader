@@ -6,8 +6,9 @@
   "unity": "2020.3",
   "unityRelease": "23f1",
   "dependencies": {
+    "fedorenkosergiy.moqunity": "0.3.0"
   },
- "keywords": [
+  "keywords": [
     "Package"
   ],
   "author": {
