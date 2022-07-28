@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.Windows;
 using static RemotePackageLoader.Editor.RemotePackageTypeUtil;
 using File = System.IO.File;
